@@ -1,0 +1,17 @@
+---
+- name: Install Apache2
+  apt: pkg=apache2 state=present
+  sudo: yes
+
+- name: Enable Apache2 as service
+  service:
+    name=apache2
+    enabled=yes
+  sudo: yes
+
+- name: Enable required modules
+  command:
+    a2enmod {{ item }}
+  sudo: yes
+  with_items: modules.required
+  notify: apache-restart
