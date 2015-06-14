@@ -1,4 +1,27 @@
 ---
+settings:
+    ports:
+        - 80
+    ssl_ports:
+        - 443
+    listen:
+        - '*:80'
+    log_level: 'warn'
 modules:
     required:
       - rewrite
+
+vhosts:
+    default_site:
+        enabled: no
+        domain: example.com
+        aliases:
+            - dev.example.com
+            - local.example.com
+        doc_root: /var/www/html
+        settings: |
+          <IfModule proxy_http_module>
+            ProxyPass /Content http://n.km-school.ru:8085/Content
+            ProxyPassReverse /Content http://n.km-school.ru:8085/Content
+          </IfModule>
+          Alias /Content2 /var/www/content2

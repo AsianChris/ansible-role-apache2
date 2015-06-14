@@ -1,0 +1,32 @@
+# Virtual host config for host {{ item.value.domain }}
+
+<VirtualHost {% if item.value.listen is defined %}{{ item.value.listen|join(' ') }}{% else %}{{ settings.listen|join(' ') }}{%endif %}>
+    ServerName {{ item.value.domain }}
+
+{% if item.value.aliases is defined %}
+{% for ServerAlias in item.value.aliases %}
+    ServerAlias {{ ServerAlias }}
+{% endfor %}
+{% endif %}
+
+    DocumentRoot {{ item.value.doc_root }}
+    <Directory {{ item.value.doc_root }}>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+
+    # Possible values include: debug, info, notice, warn, error, crit,
+    # alert, emerg.
+    LogLevel {% if item.value.log_level is defined %}{{ item.value.log_level }}{% else %}{{ settings.log_level }}{%endif %}
+
+
+    ErrorLog /var/log/apache2/{{ item.key }}-error.log
+    CustomLog /var/log/apache2/{{ item.key }}-access.log combined
+
+{% if item.value.settings is defined %}
+    {{ item.value.settings|indent(2) }}
+{% endif %}
+
+</VirtualHost>
