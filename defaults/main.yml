@@ -20,8 +20,13 @@ vhosts:
             - local.example.com
         doc_root: /var/www/html
         settings: |
+          <Directory {{ doc_root }}>
+            Options Indexes FollowSymLinks MultiViews
+            AllowOverride All
+            Require all granted
+          </Directory>
           <IfModule proxy_http_module>
-            ProxyPass /Content http://n.km-school.ru:8085/Content
-            ProxyPassReverse /Content http://n.km-school.ru:8085/Content
+            ProxyPass /Content http://localhost:8080/
+            ProxyPassReverse /Content http://localhost:8080/
           </IfModule>
           Alias /Content2 /var/www/content2
