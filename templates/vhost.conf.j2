@@ -10,12 +10,6 @@
 {% endif %}
 
     DocumentRoot {{ item.value.doc_root }}
-    <Directory {{ item.value.doc_root }}>
-        Options Indexes FollowSymLinks MultiViews
-        AllowOverride All
-        Require all granted
-    </Directory>
-
 
     # Possible values include: debug, info, notice, warn, error, crit,
     # alert, emerg.
