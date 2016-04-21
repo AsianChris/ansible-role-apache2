@@ -3,22 +3,26 @@
   service:
     name=apache2
     start=started
-  sudo: yes
+  become: yes
+  become_method: sudo
 
 - name: apache-stop
   service:
     name=apache2
     start=stopped
-  sudo: yes
+  become: yes
+  become_method: sudo
 
 - name: apache-reload
   service:
     name=apache2
     state=reloaded
-  sudo: yes
+  become: yes
+  become_method: sudo
 
 - name: apache-restart
   service:
     name=apache2
     state=restarted
-  sudo: yes
+  become: yes
+  become_method: sudo

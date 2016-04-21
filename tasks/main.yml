@@ -1,27 +1,31 @@
 ---
 - name: Install Apache2
   apt: pkg=apache2 state=present
-  sudo: yes
+  become: yes
+  become_method: sudo
 
 - name: Enable Apache2 as service
   service:
     name=apache2
     enabled=yes
-  sudo: yes
+  become: yes
+  become_method: sudo
 
 - name: Setup Ports
   template:
     src=ports.conf.j2
     dest=/etc/apache2/ports.conf
     mode=0644
-  sudo: yes
+  become: yes
+  become_method: sudo
   notify: apache-restart
 
 - name: Enable required modules
   command:
     a2enmod {{ item }}
-  sudo: yes
-  with_items: modules.required
+  become: yes
+  become_method: sudo
+  with_items: '{{modules.required}}'
   notify: apache-restart
 
 - name: Adding/removing Apache virtual hosts
