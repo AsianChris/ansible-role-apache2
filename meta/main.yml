@@ -8,7 +8,7 @@ galaxy_info:
   author: Chris Baptista
   role_name: apache2
   description: apache installation
-  company:
+  company: Chris Baptista
   license: license (BSD)
   min_ansible_version: 2.0
   platforms:
