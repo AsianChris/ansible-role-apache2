@@ -6,6 +6,7 @@ dependencies:
 
 galaxy_info:
   author: Chris Baptista
+  role_name: apache2
   description: apache installation
   company:
   license: license (BSD)
